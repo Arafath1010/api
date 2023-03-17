@@ -9,10 +9,10 @@ async def search(keyword):
        l=[]
        o={}
        headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
-       for i in range(1,61,10):
+       for i in range(1,41,10):
               #print(i)
          try:
-              target_url="https://www.bing.com/search?q="+keyword+"&setlang=ar&rdr=1&first={}".format(i)
+              target_url="https://www.bing.com/search?q="+keyword+"&rdr=1&first={}".format(i)
                   #print(target_url)
               resp=requests.get(target_url,headers=headers)
               soup = BeautifulSoup(resp.text, 'html.parser')
