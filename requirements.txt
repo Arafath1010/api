@@ -2,4 +2,3 @@ fastapi
 bs4
 requests
 uvicorn
-sqlite3
