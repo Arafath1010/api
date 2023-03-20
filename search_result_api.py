@@ -2,11 +2,31 @@ from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
 
+import sqlite3
+con = sqlite3.connect("ads.db")
+
+def ads(key):
+    ad = {}
+    adl = []
+    key = (key + " # # # # #").split()
+    cursor = con.execute("SELECT * from ads_data WHERE keywords like '%"+key[0]+"%' or keywords like '%"+key[1]+
+                         "%' or keywords like '%"+key[2]+"%' or keywords like '%"+key[3]+"%' or keywords like '%"+key[4]+"%'")
+    c=1
+    for row in cursor:
+          ad["Title"] = "promoted Ad - "+row[0]
+          ad["link"] = row[1]
+          ad["Description"] = row[2]
+          adl.append(ad)
+          if c==2:
+            break
+          c+c+1
+    return adl
+
 
 app = FastAPI()
 @app.post("/search/{keyword}")
 async def search(keyword):
-              l=[]#+ads(keyword)
+              l=[]+ads(keyword)
               o={}
               headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"}
 
