@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 import googletrans
 from googletrans import Translator
+from fastapi.middleware.cors import CORSMiddleware
 translator = Translator()
 
 lan = googletrans.LANGUAGES
