@@ -13,6 +13,14 @@ vals = list(lan.values())
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.post("/translators/")
 async def tra(sentence,lang):
         lang = lang.lower()
