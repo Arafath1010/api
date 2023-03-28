@@ -13,7 +13,7 @@ vals = list(lan.values())
 
 app = FastAPI()
 
-@app.post("translators/")
+@app.post("/translators/")
 async def tra(sentence,lang):
         lang = lang.lower()
         return translator.translate(sentence,dest=keys[vals.index(lang)]).text
