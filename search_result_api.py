@@ -36,12 +36,14 @@ def text_to_speech(text: str):
     return FileResponse(audio_file, media_type='audio/mpeg')
 
 @app.post("/speech-to-text/")
-def speech_to_text(audio_file: bytes, lang: Optional[str] = "en-US"):
+async def speech_to_text(audio_file: UploadFile = File(...), lang: Optional[str] = "en-US"):
+    file_location = audio_file.filename
+    with open(file_location, "wb") as file_object:
+        shutil.copyfileobj(audio_file.file, file_object)
     recognizer = sr.Recognizer()
-    sound = AudioSegment.from_file(audio_file)
-    sound.export("audio.wav", format="wav")
-    with sr.AudioFile("audio.wav") as source:
+    with sr.AudioFile(file_location) as source:
         audio = recognizer.record(source)
+    os.remove(file_location)
     text = recognizer.recognize_google(audio, language=lang)
     return {"text": text}
 
