@@ -6,7 +6,7 @@ import speech_recognition as sr
 from gtts import gTTS
 from fastapi.responses import FileResponse
 
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 import googletrans
 from googletrans import Translator
 from fastapi.middleware.cors import CORSMiddleware
