@@ -12,6 +12,7 @@ from googletrans import Translator
 from fastapi.middleware.cors import CORSMiddleware
 translator = Translator()
 import shutil
+import os
 lan = googletrans.LANGUAGES
 #print(lan)
 keys = list(lan.keys())
