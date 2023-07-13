@@ -66,7 +66,7 @@ wcapi = API(
 )
 
 @app.post("/woo_make_order/")
-def make_order(data):
+def make_order(data:dict):
     print(type(data))
     return wcapi.post("orders", data).json()
         
