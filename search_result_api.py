@@ -67,55 +67,54 @@ wcapi = API(
 
 @app.post("/woo_make_order/")
 def make_order(data):
-    data = {
-    "payment_method": "bacs",
-    "payment_method_title": "cash payment",
-    "set_paid": True,
-    "billing": {
-        "first_name": "arafath",
-        "last_name": "Doe",
-        "address_1": "969 Market",
-        "address_2": "",
-        "city": "San Francisco",
-        "state": "CA",
-        "postcode": "94103",
-        "country": "US",
-        "email": "john.doe@example.com",
-        "phone": "(555) 555-5555"
-    },
-    "shipping": {
-        "first_name": "John",
-        "last_name": "Doe",
-        "address_1": "969 Market",
-        "address_2": "",
-        "city": "San Francisco",
-        "state": "CA",
-        "postcode": "94103",
-        "country": "US"
-    },
-    "line_items": [
-        {
-            "product_id": 22150,
-            "quantity": 2
-        },
-        {
-            "product_id": 22120,
-            "quantity": 1
+    if data=="a":
+        data = {
+            "payment_method": "bacs",
+            "payment_method_title": "Direct Bank Transfer",
+            "set_paid": True,
+            "billing": {
+                "first_name": "Arafath",
+                "last_name": "Doe",
+                "address_1": "969 Market",
+                "address_2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "postcode": "94103",
+                "country": "US",
+                "email": "arafath.doe@example.com",
+                "phone": "(555) 555-5555"
+            },
+            "shipping": {
+                "first_name": "John",
+                "last_name": "Doe",
+                "address_1": "969 Market",
+                "address_2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "postcode": "94103",
+                "country": "US"
+            },
+            "line_items": [
+                {
+                    "product_id": 22150,
+                    "quantity": 2
+                },
+                {
+                    "product_id": 22120,
+                    "quantity": 1
+                }
+            ],
+            "shipping_lines": [
+                {
+                    "method_id": "flat_rate",
+                    "method_title": "Flat Rate",
+                    "total": "10.00"
+                }
+            ]
         }
-        {
-            "product_id": 22120,
-            "quantity": 4
-        }
-    ],
-    "shipping_lines": [
-        {
-            "method_id": "flat_rate",
-            "method_title": "Flat Rate",
-            "total": "10.00"
-        }
-    ]
-}
-      return wcapi.post("orders", data).json()
+    else:
+        data = data
+    return wcapi.post("orders", data).json()
         
 
 
