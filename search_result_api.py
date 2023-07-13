@@ -67,6 +67,7 @@ wcapi = API(
 
 @app.post("/woo_make_order/")
 def make_order(data):
+    print(type(data))
     if data=="a":
         data = {
             "payment_method": "bacs",
