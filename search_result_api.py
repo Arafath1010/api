@@ -53,6 +53,21 @@ async def speech_to_text(audio_file: UploadFile = File(...), lang: Optional[str]
 async def tra(sentence,lang):
         lang = lang.lower()
         return translator.translate(sentence,dest=keys[vals.index(lang)]).text
+
+
+
+from woocommerce import API
+
+wcapi = API(
+    url="https://nsautotrading.co.uk",
+    consumer_key="ck_05994a5bb7046e5da665ab8708d51a488236f922",
+    consumer_secret="cs_20c4803581ed724f850ffd2ce34fcf1c8339cb68",
+    version="wc/v3"
+)
+
+@app.post("/woo_make_order/")
+async def tra(data):
+      return wcapi.post("orders", data).json()
         
 
 
