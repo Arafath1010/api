@@ -8,3 +8,5 @@ gtts
 SpeechRecognition
 python-multipart
 WooCommerce
+lxml
+beautifulsoup4
