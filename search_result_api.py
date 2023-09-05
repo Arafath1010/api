@@ -1,5 +1,7 @@
 #googletrans-3.1.0a0
-
+from fastapi import FastAPI
+from bs4 import BeautifulSoup
+import requests, lxml
 from typing import Optional
 from pydub import AudioSegment
 import speech_recognition as sr
@@ -71,6 +73,43 @@ def make_order(data:dict):
     return wcapi.post("orders", data).json()
         
 
+@app.post("/video/{keyword}")
+async def video(keyword):
+       headers = {
+           "User-Agent":
+           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+       }
 
+       params = {
+           "q": keyword,"count":200
+           #"cc": "us" # language/country of the search
+       }
+
+       html = requests.get('https://www.bing.com/videos/search', params=params, headers=headers)
+       soup = BeautifulSoup(html.text, 'lxml')
+       data=[]
+       for result in soup.select('.mc_vtvc.b_canvas'):
+              try:
+                   d={}
+                   d["title"] = result.select_one('.b_promtxt').text
+                   d["link"] = f"https://www.bing.com{result.select_one('.mc_vtvc_link')['href']}"
+                   d["views"] = result.select_one('.mc_vtvc_meta_row:nth-child(1) span:nth-child(1)').text
+                   d["date"] = result.select_one('.mc_vtvc_meta_row:nth-child(1) span+ span').text
+                   d["video_platform"] = result.select_one('.mc_vtvc_meta_row+ .mc_vtvc_meta_row span:nth-child(1)').text
+                   d["channel_name"] = result.select_one('.mc_vtvc_meta_row_channel').text
+                   img = str(result.select_one('.mc_vtvc_con_rc' )).split(",")[3].replace('"turl":"',"")
+                   d["tump_img"] = img.replace('"',"")
+                   data.append(d)
+                   #c=0
+                   #for i in img:
+                       #print(c)
+                       #print(i)
+                       #c=c+1
+                 
+              except:
+                   print()
+       for i in data[7:25]:
+              data.append(i)
+       return {"video":data}
 
 # for run the api uvicorn translator_api:app
