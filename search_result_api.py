@@ -68,7 +68,7 @@ async def video(keyword):
     cookies = sign.login()
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
     bot_message = chatbot.chat(keyword)
-    return bot_message
+    return str(bot_message).replace("\n", "<br>")
     
 
     
