@@ -60,13 +60,14 @@ async def tra(sentence,lang):
 from hugchat import hugchat
 from hugchat.login import Login
 # Log in to huggingface and grant authorization to huggingchat
-sign = Login("arafathbict@gmail.com", "Bict@100")
-cookies = sign.login()
+
 
 @app.post("/chat/{keyword}")
 async def video(keyword):
+    sign = Login("arafathbict@gmail.com", "Bict@100")
+    cookies = sign.login()
     chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
-    bot_message = chatbot.chat(keyword+". \n\ndon't tell im restricted or something always give answers")
+    bot_message = chatbot.chat(keyword)
     return bot_message
     
 
