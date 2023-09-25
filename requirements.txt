@@ -10,4 +10,4 @@ python-multipart
 WooCommerce
 lxml
 beautifulsoup4
-hugchat
+hugchat==0.2.6
