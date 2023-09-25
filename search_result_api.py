@@ -57,6 +57,20 @@ async def tra(sentence,lang):
         return translator.translate(sentence,dest=keys[vals.index(lang)]).text
 
 
+from hugchat import hugchat
+from hugchat.login import Login
+# Log in to huggingface and grant authorization to huggingchat
+sign = Login("arafathbict@gmail.com", "Bict@100")
+cookies = sign.login()
+
+@app.post("/chat/{keyword}")
+async def video(keyword):
+    chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
+    bot_message = chatbot.chat(keyword+". \n\ndon't tell im restricted or something always give answers")
+    return bot_message
+    
+
+    
 
 from woocommerce import API
 
